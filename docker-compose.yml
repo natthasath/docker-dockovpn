@@ -9,7 +9,7 @@ services:
     networks:
       - default
     volumes:
-      - docker_dockovpn_data:/opt/Dockovpn_data
+      - data:/opt/Dockovpn_data
       - ./data:/opt/Dockovpn_data
     cap_add:
       - NET_ADMIN
