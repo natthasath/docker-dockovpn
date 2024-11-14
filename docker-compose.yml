@@ -1,14 +1,27 @@
 version: '3.9'
 services:
-  dockovpn:
+  vpn:
     image: alekslitvinenk/openvpn:latest
     container_name: dockovpn
     restart: always
     ports:
       - ${APP_PORT}:1194/udp
+    networks:
+      - default
+    volumes:
+      - docker_dockovpn_data:/opt/Dockovpn_data
+      - ./data:/opt/Dockovpn_data
     cap_add:
       - NET_ADMIN
     environment:
       HOST_ADDR: ${HOST_ADDR}
-    volumes:
-      - ./data:/opt/Dockovpn_data
+
+networks:
+  default:
+    name: docker_dockovpn_network
+    driver: bridge
+
+volumes:
+  data:
+    name: docker_dockovpn_data
+    driver: local
